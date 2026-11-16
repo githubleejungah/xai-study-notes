@@ -2,7 +2,7 @@
 
 매치업 X+AI Application Developer 심화과정을 들으며 만든 개인 학습 자료입니다. GitHub Pages로 공개합니다.
 
-- 첫 화면: https://githubleejungah.github.io/xai-study-notes/
+- **Padlet용 주소 하나**: https://githubleejungah.github.io/xai-study-notes/ (위쪽 버튼으로 공부노트 · 퀴즈를 오감)
 - 챗봇 설계 공부노트: https://githubleejungah.github.io/xai-study-notes/notes/
 - 기말 시험 대비 퀴즈: https://githubleejungah.github.io/xai-study-notes/quiz/
 

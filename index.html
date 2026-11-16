@@ -7,40 +7,76 @@
 <title>X+AI 학습 노트</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 <style>
-/* 한 단 목록: 제목 · 안내 · 페이지 카드 2장 */
-:root{--bg:#F5F6F3;--surface:#FFFFFF;--ink:#1C2321;--muted:#55605C;--line:#D9DED9;--accent:#1E6B5C;--accent-t:#E1EFEB;
+/* 앱 껍데기: 위쪽 버튼줄 + 아래 화면 하나. 버튼을 누르면 같은 주소 안에서 화면만 바뀐다(#home · #notes · #quiz) */
+:root{--bg:#F5F6F3;--surface:#FFFFFF;--ink:#1C2321;--muted:#55605C;--line:#D9DED9;--accent:#1E6B5C;--accent-t:#E1EFEB;--on:#FFFFFF;
   --f:"IBM Plex Sans KR",system-ui,-apple-system,"Malgun Gothic",sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#121615;--surface:#1A201E;--ink:#E6ECEA;--muted:#AEB8B4;--line:#2E3734;--accent:#6CC3AE;--accent-t:#16302A;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#121615;--surface:#1A201E;--ink:#E6ECEA;--muted:#AEB8B4;--line:#2E3734;--accent:#6CC3AE;--accent-t:#16302A;--on:#0D1A17;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.65;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px}
-main{max-width:720px;margin:0 auto;display:grid;gap:20px}
-h1{font-size:28px;font-weight:600;margin:0;text-wrap:balance}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.65;display:flex;flex-direction:column}
+.bar{flex:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface);border-bottom:1px solid var(--line);
+  padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{font-weight:600;margin-right:auto;white-space:nowrap}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs a{font-size:14.5px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--bg)}
+.tabs a:hover{border-color:var(--accent)}
+.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tabs a[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.view{flex:1;min-height:0;display:flex}
+iframe{flex:1;width:100%;border:0;background:var(--bg)}
+.home{flex:1;overflow:auto;padding-block:32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.home main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font-size:26px;font-weight:600;margin:0;text-wrap:balance}
 p{margin:0}.muted{color:var(--muted)}
-.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 a.card{display:grid;gap:6px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
 a.card:hover,a.card:focus-visible{border-color:var(--accent);outline:none}
 a.card b{font-size:18px;font-weight:600;color:var(--accent)}
 .note{background:var(--accent-t);border-radius:10px;padding:12px 14px;font-size:14.5px;display:grid;gap:4px}
-footer{font-size:14px;color:var(--muted)}
 </style>
 </head>
 <body>
-<main>
-  <header style="display:grid;gap:8px">
-    <h1>X+AI 학습 노트</h1>
-    <p class="muted">매치업 X+AI Application Developer 심화과정을 들으며 만든 개인 학습 자료입니다.</p>
-  </header>
-  <div class="cards">
-    <a class="card" href="notes/"><b>챗봇 설계 공부노트</b><span class="muted">리테일 챗봇 MVP를 한 장 지도에서 시작해 눌러서 확대하며 보는 그림 노트</span></a>
-    <a class="card" href="quiz/"><b>기말 시험 대비 퀴즈</b><span class="muted">11/13 강의 후반부터의 시험 범위로 뽑은 예상 문제. 객관식 · OX는 바로 채점</span></a>
-  </div>
-  <div class="note">
-    <p><b>먼저 읽어 주세요</b></p>
-    <p>내용의 출처는 강사님 강의와 교재, 실습 자료입니다. 예상 문제는 개인이 추측한 것이고 실제 시험과 다를 수 있어요.</p>
-    <p>"Claude에게 묻기 · 채점받기"는 claude.ai에서 열었을 때만 동작합니다. 여기서는 모범 답을 보고 스스로 비교해 주세요.</p>
-  </div>
-  <footer>연락처: veryfar@naver.com</footer>
-</main>
+<header class="bar">
+  <span class="brand">X+AI 학습 노트</span>
+  <nav class="tabs" aria-label="화면 고르기">
+    <a href="#home" data-v="home">처음</a>
+    <a href="#notes" data-v="notes">챗봇 설계 공부노트</a>
+    <a href="#quiz" data-v="quiz">기말 시험 대비 퀴즈</a>
+  </nav>
+</header>
+
+<section class="home" id="home" aria-label="처음 화면">
+  <main>
+    <header style="display:grid;gap:8px">
+      <h1>X+AI 학습 노트</h1>
+      <p class="muted">매치업 X+AI Application Developer 심화과정을 들으며 만든 개인 학습 자료입니다. 위 버튼으로 화면을 바꿔 보세요.</p>
+    </header>
+    <div class="cards">
+      <a class="card" href="#notes"><b>챗봇 설계 공부노트</b><span class="muted">리테일 챗봇 MVP를 한 장 지도에서 시작해 눌러서 확대하며 보는 그림 노트</span></a>
+      <a class="card" href="#quiz"><b>기말 시험 대비 퀴즈</b><span class="muted">11/13 강의 후반부터의 시험 범위로 뽑은 예상 문제. 객관식 · OX는 바로 채점</span></a>
+    </div>
+    <div class="note">
+      <p><b>먼저 읽어 주세요</b></p>
+      <p>내용의 출처는 강사님 강의와 교재, 실습 자료입니다. 예상 문제는 개인이 추측한 것이고 실제 시험과 다를 수 있어요.</p>
+      <p>"Claude에게 묻기 · 채점받기"는 claude.ai에서 열었을 때만 동작합니다. 여기서는 모범 답을 보고 스스로 비교해 주세요.</p>
+    </div>
+    <p class="muted" style="font-size:14px">연락처: veryfar@naver.com</p>
+  </main>
+</section>
+<section class="view" id="v-notes" aria-label="챗봇 설계 공부노트" hidden><iframe title="챗봇 설계 공부노트" data-src="notes/"></iframe></section>
+<section class="view" id="v-quiz" aria-label="기말 시험 대비 퀴즈" hidden><iframe title="기말 시험 대비 퀴즈" data-src="quiz/"></iframe></section>
+
+<script>
+// 화면마다 iframe 을 하나씩 두고 처음 열 때만 불러온다 → 버튼을 오가도 보던 위치와 푼 기록이 그대로다
+const VIEWS=['home','notes','quiz'];
+function show(){
+  const h=location.hash.slice(1),v=VIEWS.includes(h)?h:'home';
+  document.querySelectorAll('.tabs a').forEach(a=>{if(a.dataset.v===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  document.getElementById('home').hidden=v!=='home';
+  ['notes','quiz'].forEach(k=>{const sec=document.getElementById('v-'+k);sec.hidden=k!==v;
+    const fr=sec.querySelector('iframe');if(k===v&&!fr.src)fr.src=fr.dataset.src});
+}
+addEventListener('hashchange',show);show();
+</script>
 </body>
 </html>
