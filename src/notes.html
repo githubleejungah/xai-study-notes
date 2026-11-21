@@ -184,6 +184,14 @@ const T={
  'Vite 프록시':['개발용 대리 창구','개발 서버(Vite, 5173)가 화면 요청 중 /api 로 시작하는 것만 대신 받아 게이트웨이(18080)로 넘겨 준다. 브라우저 입장에선 한 주소라서 다른 주소 호출 제한(CORS)에 걸리지 않는다.'],
  '포트':['건물의 호수','한 컴퓨터(건물) 안에서 프로그램(가게)을 구분하는 번호. 5173 = 화면, 18080 = 게이트웨이, 18091 = 채팅 서비스, 8000 = 에이전트, 8001 = 검색. 원래 설계는 k3d 안에서 게이트웨이 8080 · 채팅 8081 이고, 이 PC 에서는 서비스를 PC 에서 직접 띄워 18080 · 18091 을 쓴다(로컬 보정).'],
  'SSOT':['고치는 곳은 하나','Single Source of Truth(단일 진실 공급원). 저장 위치가 하나라는 뜻이 아니라 기준(정본)이 하나라는 뜻. 사본(캐시 · 검색 색인)은 얼마든지 둬도 되지만, 정본에서 다시 만들 수 있어야 하고 다르면 정본이 이긴다.'],
+ '레이트 리미팅':['입장 인원 제한','정해진 시간에 받을 요청 수의 상한. 넘으면 기다리게 하거나 429(잠시 후 다시) 응답을 준다. 서버가 쓰러지지 않게 하는 장치라서 걸리는 것 자체는 고장이 아니다.'],
+ '멱등성':['몇 번 눌러도 결과가 같음','같은 작업을 여러 번 해도 한 번 한 것과 결과가 같은 성질. 오류가 일시적이고 작업이 멱등일 때만 안전하게 다시 시도할 수 있다.'],
+ '서킷 브레이커':['누전 차단기','뒤쪽 서비스가 계속 실패하면 잠시 호출을 끊어(Open) 함께 쓰러지는 것을 막는다. 시간이 지나면 확인 호출만 보내 보고(Half-Open), 성공하면 다시 연결한다(Closed).'],
+ '프로브':['살아 있는지 묻는 검진','쿠버네티스가 컨테이너에 주기적으로 묻는다. startup(다 올라왔나) · readiness(요청 받을 준비가 됐나) · liveness(계속 살아 있나).'],
+ 'top-p':['후보를 자르는 비율','다음 낱말 후보를 확률이 높은 순으로 더해 p(예: 0.9)에 닿을 때까지만 남긴다. 개수로 자르는 top-k 와 다르다.'],
+ '접두사 캐싱':['앞부분 재사용','매번 똑같은 프롬프트 앞부분(시스템 프롬프트 · 툴 정의)의 계산을 저장해 두고 다시 쓴다. 첫 글자가 빨리 나오고 입력 비용이 준다. 앞부분이 조금만 바뀌어도 효과가 사라진다.'],
+ '메달리온':['원석 → 다듬기 → 완성품','브론즈(원본을 바꾸지 않고 보존) → 실버(파싱 · 규격 맞추기 · 검증) → 골드(서비스가 읽는 집계). 층을 넘을 때마다 품질을 검사한다.'],
+ '결정적 장치':['항상 같은 결과를 내는 안전장치','프롬프트 지시는 확률이라 가끔 어긴다. 권한 · 코드 검사 · 훅 · 상한처럼 코드와 설정으로 막으면 매번 같은 결과가 나온다.'],
  '검증벽':['실수를 거르는 그물','단계(언제 잡나) × 검사 종류(어떻게 잡나) 격자로 세운 검사들. 빈 칸은 실수가 새는 곳.']
 };
 // 원래 이름 · 약어 풀이
@@ -192,7 +200,8 @@ const FULL={'LLM':'Large Language Model — 대형 언어 모델','에이전트'
  'RAG':'Retrieval-Augmented Generation — 검색 증강 생성','임베딩':'Embedding — 끼워 넣기, 수치로 옮겨 담기','BM25':'Best Matching 25 — 25번째로 다듬은 Okapi 검색 점수식','RRF':'Reciprocal Rank Fusion — 역순위 융합',
  '시간 제한':'Timeout — 타임아웃','골든셋':'Golden Set — 기준 정답 세트(gold standard)','온도':'Temperature — 샘플링 온도','시드 데이터':'Seed Data — 초기 적재 데이터','개인정보 가림':'PII Masking — PII = Personally Identifiable Information(개인 식별 정보)',
  '되묻기':'Clarification — 명확히 하기','Azure OpenAI':'Microsoft Azure + OpenAI — Azure 에서 쓰는 OpenAI 모델 서비스','SSOT':'Single Source of Truth — 단일 진실 공급원','검증벽':'Verification Wall — 이 노트에서 쓴 비유 이름','스트림':'Stream — 흐름, 흘려보내기',
- 'Vite 프록시':'Vite(프랑스어 "빠르다", 발음 "비트") + Proxy(대리인). CORS = Cross-Origin Resource Sharing(다른 출처 자원 공유 규칙)','포트':'Port — 항구 · 출입구 번호'};
+ 'Vite 프록시':'Vite(프랑스어 "빠르다", 발음 "비트") + Proxy(대리인). CORS = Cross-Origin Resource Sharing(다른 출처 자원 공유 규칙)','포트':'Port — 항구 · 출입구 번호',
+ '레이트 리미팅':'Rate Limiting — 요청 속도 제한','멱등성':'Idempotency — idem(같은) + potent(힘)','서킷 브레이커':'Circuit Breaker — 회로 차단기','프로브':'Probe — 탐침, 검사','top-p':'Top-p — Nucleus Sampling(핵 샘플링)','접두사 캐싱':'Prefix Caching — prefix(앞부분) + caching(저장해 두고 다시 쓰기)','메달리온':'Medallion Architecture — 메달(동 · 은 · 금) 구조','결정적 장치':'Deterministic — 결정적(항상 같은 결과)'};
 function rich(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\{\{([^}]+)\}\}/g,(m,w)=>T[w]?'<button type="button" class="tm" data-term="'+w+'">'+w+'</button>':w)}
 
 /* ---------- 그림들 (색은 모두 토큰) ---------- */
@@ -292,6 +301,16 @@ const DEPLOY='<div class="cols">'+
  '<div class="note">'+rich('원래 설계: 서비스 6개 모두 k3d 안(app 네임스페이스)에서 돌고, 화면은 Traefik Ingress(localhost:8080)로 들어온다. 아래 두 구성은 이 PC 를 위한 로컬 보정이다.')+'</div><div class="note">'+rich('서비스 코드는 한 줄도 안 바꿨다. {{LiteLLM}} 설정의 chat-small · chat-large 뒤에 무엇을 꽂느냐만 바꾼다. 임베딩을 로컬에 남긴 이유: 이미 만든 1024차원 색인과 맞춰야 해서.')+'</div>'+BARS+
  '<p class="small">환경: 노트북 Core 7 150U(저전력 CPU, GPU 없음) · RAM 16 GB · 2026-11-15 · 다른 무거운 프로그램이 함께 돌던 상태 · 질문 1개 "택을 뗐는데 반품 가능해요?". 이 챗봇의 일반적인 속도가 아니라, 같은 PC 에서 배치만 바꿨을 때의 차이를 보여 주는 기록이에요.</p>';
 
+const OPS=chain([['teal','{{레이트 리미팅}}','정문(18080)에서 세션별 요청 수 제한 · 넘으면 429 와 함께 잠시 후 다시'],['amber','다시 시도','일시 오류이면서 {{멱등성}}이 있는 작업만 · 간격을 늘리며 횟수 상한'],['coral','{{서킷 브레이커}}','계속 실패하면 잠시 끊기 → 확인 호출 → 다시 연결'],['green','대체 답','끊긴 동안은 대신 답하고, 이미 보낸 글자는 지우지 않기']])+
+ '<h3 style="margin-top:16px">컨테이너가 살아 있는지 묻기 — {{프로브}}</h3>'.replace('{{프로브}}',rich('{{프로브}}'))+chain([['gray','startup','다 올라왔나 · 통과하기 전엔 아래 둘이 돌지 않는다'],['gray','readiness','요청을 받을 준비가 됐나 · 아니면 트래픽에서 뺀다'],['gray','liveness','계속 살아 있나 · 가벼운 확인만, LLM 호출 금지']])+
+ '<div class="note">'+rich('느린 PC 에서 PostgreSQL 이 1초 제한 liveness 에 걸려 멀쩡한데도 거듭 재시작된 적이 있다. startup 프로브의 기다리는 시간(실패 허용 횟수 × 간격)을 가장 긴 로딩 시간보다 길게 잡으면 된다. 메모리는 요청량과 한도를 같게 두어 메모리 부족으로 꺼지는 일을 미리 예측한다.')+'</div>';
+const LLMSET=chain([['purple','{{온도}}','분류 · 추출 · 판정은 0~0.3 · 글쓰기는 더 높게'],['purple','{{top-p}}','후보를 비율로 자르기 · 온도와 한 번에 하나만 조정'],['gray','{{접두사 캐싱}}','고정된 앞부분은 앞에, 바뀌는 질문은 뒤에'],['amber','컨텍스트 아끼기','시스템 프롬프트 중복 지우기 · 오래된 대화는 요약']])+
+ '<div class="note">'+rich('router · critic 같은 판정 노드는 낮은 온도가 맞다. 다만 gpt-5-mini 는 온도 1 만 받아서 이 챗봇에서는 설정을 뺐다. 같은 설정도 모델마다 받거나 무시하거나 오류를 낸다. 모델 앞에 {{LiteLLM}} 이 있어서 chat-small · chat-large 뒤의 실제 모델만 바꾸면 된다.')+'</div>';
+const LAYERS=chain([['amber','브론즈','받은 원본 그대로 보존 · 고치지 않는다'],['amber','실버','파싱 · 규격 맞추기 · 검증은 여기서 한 번'],['green','골드','서비스가 읽는 집계 · 화면 · 검색이 쓰는 층']])+
+ '<div class="note">'+rich('지금 {{시드 데이터}}는 합성이라 처음부터 골드에 넣는 셈이다. 실제 데이터가 오면 층을 나누고, 적재를 몇 번 돌려도 결과가 같게 만든다({{멱등성}}: 자연키로 덮어쓰기). 옮긴 뒤에는 행 수를 먼저 맞추고, 표본을 뽑아 내용을 비교한다.')+'</div>';
+const GUARDS='<div class="cols"><div class="col"><h3>프롬프트 지시</h3><small class="small">대체로 지키지만 어길 확률이 0 이 아니다. 판단의 질을 높일 때 쓴다(기준 · 예시).</small></div>'+
+ '<div class="col"><h3>'+rich('{{결정적 장치}}')+'</h3><small class="small">권한 · 코드 검사 · 훅 · 횟수 상한. 매번 같은 결과. 반드시 지켜야 할 때 쓴다.</small></div></div>'+
+ '<div class="note">'+rich('이 챗봇에서는 {{라우터}}의 "규칙 먼저"와 {{critic}}의 "코드 규칙 검사"가 결정적 장치다. 툴 두 개의 설명이 겹쳐 모델이 하나를 못 고르면 툴 이름 · 설명을 서로 구별되게 고친다. 어려운 판단만 생각을 깊게 하고, 단순 반복은 작은 모델에 맡긴다.')+'</div>';
 const DATA='<div class="scroll"><table><thead><tr><th>시드 파일</th><th>어디로</th><th>누가 쓰나</th></tr></thead><tbody>'+
  [['products · promotions · stores · brands · categories · 정책 문서 정보 · 데이터 기준일','PostgreSQL catalog 스키마 — <b>원본(정본)</b>','카탈로그 서비스 → 에이전트의 get_products · get_promotions, 화면의 상품 목록'],
   ['policies · faqs · brand_guide (+ 상품 · 프로모션 설명)','Elasticsearch(키워드) + Qdrant(의미 벡터) — 문서 65개 → 조각 78개 · 사본 (정본: 시드 파일)','검색 서비스 → search_hybrid'],
@@ -364,16 +383,20 @@ const QUIZHTML='<div class="review" id="review"></div><div style="display:grid;g
 const V={
  map:{lv:'L0',name:'한 장 지도',t:'리테일 챗봇 MVP 한 장 지도',lead:'고객이나 마케터가 화면에서 질문하면 API 게이트웨이와 채팅 서비스를 거쳐 {{에이전트}}에 닿습니다. 에이전트는 카탈로그 · 검색 서비스로 근거를 찾고, {{LiteLLM}} 뒤의 {{LLM}}에게 답을 쓰게 합니다. 답은 같은 길을 거꾸로 {{SSE}}로 흘러옵니다. 상자를 누르면 확대됩니다.',body:MAP+'<div class="note">'+rich('문은 둘이다. API 게이트웨이는 사람 → 서비스, {{LiteLLM}}은 서비스 → 모델. 사용자 요청은 LiteLLM 에 직접 닿을 수 없고, 서비스끼리는 게이트웨이를 거치지 않고 바로 부른다(ADR-001). 화면의 상품 목록은 API 게이트웨이 → 카탈로그로 바로 간다(그림에서는 생략). 검색 저장소 셋은 사본이고, 정본은 PostgreSQL(상품 · 대화)과 시드 파일(정책 · FAQ · 관계)이다.')+'</div>',kids:['journey','deploy','data'],side:['walls','quiz']},
  journey:{lv:'L1',name:'질문 하나의 여정',parent:'map',t:'질문 하나의 여정',lead:'"택을 뗐는데 반품 가능해요?"가 화면에서 출발해 LLM 까지 갔다가 {{SSE}}로 돌아오는 11단계입니다. 화면은 {{Vite 프록시}}를 거쳐 {{포트}} 18080 의 게이트웨이로 질문을 보내고, 답은 {{스트림}}으로 받습니다.',body:JOURNEY,kids:['chat','graph','retrieval','timeouts']},
- deploy:{lv:'L1',name:'로컬 vs Azure',parent:'map',t:'로컬 vs Azure 배치',lead:'무엇이 내 PC 에서, 무엇이 클라우드에서 도는지. 오늘 두 구성을 모두 켜고 재 봤습니다.',body:DEPLOY,kids:['timeouts']},
- data:{lv:'L1',name:'데이터 지도',parent:'map',t:'데이터 지도',lead:'{{시드 데이터}} 파일이 어느 저장소로 가고, 누가 꺼내 쓰는지.',body:DATA,kids:['retrieval']},
+ deploy:{lv:'L1',name:'로컬 vs Azure',parent:'map',t:'로컬 vs Azure 배치',lead:'무엇이 내 PC 에서, 무엇이 클라우드에서 도는지. 오늘 두 구성을 모두 켜고 재 봤습니다.',body:DEPLOY,kids:['timeouts','llmset','ops']},
+ data:{lv:'L1',name:'데이터 지도',parent:'map',t:'데이터 지도',lead:'{{시드 데이터}} 파일이 어느 저장소로 가고, 누가 꺼내 쓰는지.',body:DATA,kids:['retrieval','layers']},
  chat:{lv:'L2',name:'채팅 서비스 안쪽',parent:'journey',t:'채팅 서비스 안쪽',lead:'화면과 에이전트 사이의 중계소. 가리고, 저장하고, 붙이고, 흘려보냅니다.',body:CHAT,kids:['timeouts']},
- graph:{lv:'L2',name:'에이전트 그래프',parent:'journey',t:'에이전트 그래프',lead:'갈림길({{라우터}})과 되돌아가는 길({{critic}} → 같은 {{워커}})이 핵심입니다. {{LangGraph}}로 만든 흐름도입니다.',body:GRAPH+'<div class="note">'+rich('고정 연결은 시작 → router, responder → 끝 두 개뿐이다. 나머지 갈림길은 각 노드가 Command(goto=다음 노드)로 고른다. 안전장치로 최대 25걸음(recursion_limit)을 두는데, 정상이면 8걸음 안에 끝난다.')+'</div>',kids:['router','critic']},
+ graph:{lv:'L2',name:'에이전트 그래프',parent:'journey',t:'에이전트 그래프',lead:'갈림길({{라우터}})과 되돌아가는 길({{critic}} → 같은 {{워커}})이 핵심입니다. {{LangGraph}}로 만든 흐름도입니다.',body:GRAPH+'<div class="note">'+rich('고정 연결은 시작 → router, responder → 끝 두 개뿐이다. 나머지 갈림길은 각 노드가 Command(goto=다음 노드)로 고른다. 안전장치로 최대 25걸음(recursion_limit)을 두는데, 정상이면 8걸음 안에 끝난다.')+'</div>',kids:['router','critic','guards']},
  retrieval:{lv:'L2',name:'검색 안쪽',parent:'journey',t:'검색 서비스 안쪽',lead:'{{RAG}}의 "찾기" 부분. 키워드 · 의미 · 관계 세 방식으로 근거를 찾습니다.',body:RETRIEVAL,kids:['rrf']},
  timeouts:{lv:'L2',name:'시간 제한 계층',parent:'journey',t:'시간 제한 계층',lead:'{{시간 제한}}은 상자 안의 상자입니다. 안쪽이 바깥보다 짧아야 원인이 남습니다. 괄호 안은 이 PC 보정값.',body:TIMEOUTS},
  router:{lv:'L3',name:'router 순서',parent:'graph',t:'router 는 이렇게 분류한다',lead:'규칙 먼저 → 작은 모델에게 묻기 → {{확신도}} 검사 → 사용자 유형 확인. 확신이 약하면 짐작 대신 {{되묻기}}.',body:ROUTER,kids:['confidence']},
  confidence:{lv:'L3',name:'확신도 판정',parent:'router',t:'확신도 숫자 읽기',lead:'숫자는 예시입니다. 모델이 스스로 매긴 점수라서 확률과 다를 수 있고, 기준값은 {{골든셋}}으로 골라야 합니다.',body:CONF+'<div class="note">'+rich('0.6 · 0.15 와 검색 관련도 기준 0.012 는 아직 잠정값이다. 설계서 TBD-P3-8 에 따라 2026-11-20 까지 평가 세트로 조정한다.')+'</div>',side:['golden']},
  critic:{lv:'L3',name:'critic 판정',parent:'graph',t:'critic 은 이렇게 판정한다',lead:'코드 규칙으로 먼저 거르고, S2 · S3 는 작은 모델이 문장과 근거를 짝지어 한 번 더 봅니다.',body:CRITIC},
  rrf:{lv:'L3',name:'검색 점수 합치기',parent:'retrieval',t:'검색 점수 합치기(RRF)',lead:'두 검색의 순위를 하나로 합치는 계산. 오늘 실제 결과로 손으로 계산해 봅니다.',body:RRF},
+ llmset:{lv:'L2',name:'LLM 설정',parent:'deploy',t:'LLM 에게 주는 설정 손잡이',lead:'같은 모델도 설정에 따라 답의 일관성 · 속도 · 비용이 달라집니다.',body:LLMSET},
+ ops:{lv:'L2',name:'쓰러지지 않게',parent:'deploy',t:'서비스가 쓰러지지 않게',lead:'요청이 몰리거나 뒤쪽이 느려져도 전체가 멈추지 않게 하는 장치들입니다. 앞에서 줄 세우고, 다시 시도하고, 끊고, 대신 답합니다.',body:OPS},
+ layers:{lv:'L2',name:'데이터 층 나누기',parent:'data',t:'데이터를 세 층으로 나누기',lead:'{{메달리온}} 구조입니다. 원본은 그대로 두고, 한 번만 다듬고, 서비스는 완성된 층만 읽습니다.',body:LAYERS},
+ guards:{lv:'L3',name:'꼭 지킬 규칙',parent:'graph',t:'꼭 지킬 규칙은 코드로',lead:'프롬프트에 "하지 마"라고 써도 가끔 어깁니다. 반드시 지켜야 하는 규칙은 {{결정적 장치}}로 막습니다.',body:GUARDS},
  walls:{lv:'q',name:'검증벽 지도',parent:'map',t:'검증벽 지도',lead:'{{검증벽}}: 가로는 단계(언제 잡나), 세로는 검사 종류(어떻게 잡나). 빨간 점선 칸은 비어서 세워야 할 벽입니다.',body:WALLHTML,kids:['golden']},
  golden:{lv:'q',name:'골든셋',parent:'walls',t:'골든셋은 이렇게 만든다',lead:'{{골든셋}}은 모범 답안이 붙은 시험지입니다. 누가, 어떻게 만들고, 다른 세트와 무엇이 다른지.',body:GOLDEN},
  quiz:{lv:'q',name:'꺼내 보기 퀴즈',parent:'map',t:'꺼내 보기 퀴즈',lead:'읽기보다 떠올리기가 오래 남습니다. 내 말로 먼저 적고, 정답을 보거나 Claude 에게 채점받으세요. 복습은 오늘 · 내일 · 3일 뒤 · 7일 뒤.',body:QUIZHTML}
@@ -446,7 +469,7 @@ let sampleP=null;function sampleFn(){if(!sampleP)sampleP=(window.claude&&claude.
 function plain(h){const d=document.createElement('div');d.innerHTML=h;return d.textContent.replace(/\s+/g,' ').trim()}
 function notes(){return Object.entries(V).filter(([k])=>k!=='quiz').map(([k,v])=>'['+LVNAME[v.lv]+' · '+v.t+'] '+plain(rich(v.lead))+' '+plain(v.body).slice(0,1500)).join('\n\n')+
  '\n\n[여정 단계] '+STEPS.map((s,i)=>(i+1)+'. '+s[1]+' — '+s[2]+': '+s[3]).join(' ')+'\n\n[용어] '+Object.entries(T).map(([w,[a,e]])=>w+(FULL[w]?' ['+FULL[w]+']':'')+'('+a+'): '+e).join(' ')+
- '\n\n[학습자] 리테일 챗봇(Vue · Spring · FastAPI · LangGraph · k3d · LiteLLM)을 실습 중인 학생. 강사는 항상 "강사님"으로 부른다.'}
+ '\n\n[학습자] 리테일 챗봇(Vue · Spring · FastAPI · LangGraph · k3d · LiteLLM)을 실습 중인 학생.'}
 const RULES='너는 이 공부노트를 함께 보는 친절한 학습 도우미다. 아래 노트를 근거로 한국어 짧은 문장으로 답하라. 용어는 처음 나올 때 쉬운 말로 풀어라. 노트에 없는 내용은 일반 지식으로 답하되 "노트 밖 내용"이라고 밝혀라. 마크다운 기호(#, **, 표)는 쓰지 말고 줄바꿈과 번호만 써라. 마지막 줄에 스스로 떠올려 볼 질문 1개를 붙여라.\n\n=== 노트 ===\n'+notes();
 let turns=[];try{turns=JSON.parse(sessionStorage.getItem('study-chat')||'[]')}catch(e){turns=[]}
 function keepChat(){try{sessionStorage.setItem('study-chat',JSON.stringify(turns.slice(-12)))}catch(e){}}

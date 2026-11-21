@@ -42,7 +42,7 @@ a.card b{font-size:18px;font-weight:600;color:var(--accent)}
   <nav class="tabs" aria-label="화면 고르기">
     <a href="#home" data-v="home">처음</a>
     <a href="#notes" data-v="notes">챗봇 설계 공부노트</a>
-    <a href="#quiz" data-v="quiz">기말 시험 대비 퀴즈</a>
+    <a href="#quiz" data-v="quiz">복습 퀴즈</a>
   </nav>
 </header>
 
@@ -54,18 +54,18 @@ a.card b{font-size:18px;font-weight:600;color:var(--accent)}
     </header>
     <div class="cards">
       <a class="card" href="#notes"><b>챗봇 설계 공부노트</b><span class="muted">리테일 챗봇 MVP를 한 장 지도에서 시작해 눌러서 확대하며 보는 그림 노트</span></a>
-      <a class="card" href="#quiz"><b>기말 시험 대비 퀴즈</b><span class="muted">11/13 강의 후반부터의 시험 범위로 뽑은 예상 문제. 객관식 · OX는 바로 채점</span></a>
+      <a class="card" href="#quiz"><b>복습 퀴즈</b><span class="muted">챗봇 런타임 · 데이터 · 서빙 복습 문제. 객관식 · OX는 바로 채점</span></a>
     </div>
     <div class="note">
       <p><b>먼저 읽어 주세요</b></p>
-      <p>내용의 출처는 강사님 강의와 교재, 실습 자료입니다. 예상 문제는 개인이 추측한 것이고 실제 시험과 다를 수 있어요.</p>
+      <p>교재와 실습 자료를 바탕으로 내 말로 정리한 개인 학습 자료입니다. 문제는 개인이 만든 복습용이에요.</p>
       <p>"Claude에게 묻기 · 채점받기"는 claude.ai에서 열었을 때만 동작합니다. 여기서는 모범 답을 보고 스스로 비교해 주세요.</p>
     </div>
     <p class="muted" style="font-size:14px">연락처: veryfar@naver.com</p>
   </main>
 </section>
 <section class="view" id="v-notes" aria-label="챗봇 설계 공부노트" hidden><iframe title="챗봇 설계 공부노트" data-src="notes/"></iframe></section>
-<section class="view" id="v-quiz" aria-label="기말 시험 대비 퀴즈" hidden><iframe title="기말 시험 대비 퀴즈" data-src="quiz/"></iframe></section>
+<section class="view" id="v-quiz" aria-label="복습 퀴즈" hidden><iframe title="복습 퀴즈" data-src="quiz/"></iframe></section>
 
 <script>
 // 화면마다 iframe 을 하나씩 두고 처음 열 때만 불러온다 → 버튼을 오가도 보던 위치와 푼 기록이 그대로다

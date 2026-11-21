@@ -4,9 +4,9 @@
 
 - **Padlet용 주소 하나**: https://githubleejungah.github.io/xai-study-notes/ (위쪽 버튼으로 공부노트 · 퀴즈를 오감)
 - 챗봇 설계 공부노트: https://githubleejungah.github.io/xai-study-notes/notes/
-- 기말 시험 대비 퀴즈: https://githubleejungah.github.io/xai-study-notes/quiz/
+- 복습 퀴즈: https://githubleejungah.github.io/xai-study-notes/quiz/
 
-내용의 출처는 강사님 강의와 교재, 실습 자료입니다. 예상 문제는 개인이 추측한 것이고 실제 시험과 다를 수 있습니다. 검색 엔진에는 노출하지 않습니다(`noindex`, `robots.txt`).
+교재와 실습 자료를 바탕으로 내 말로 정리했습니다. 문제는 개인이 만든 복습용입니다. 검색 엔진에는 노출하지 않습니다(`noindex`, `robots.txt`).
 
 ## 고치는 법
 
